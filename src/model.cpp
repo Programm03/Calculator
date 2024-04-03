@@ -19,7 +19,7 @@ std::string Model::reverseToRPN(const std::string &input)
         if (std::isdigit(input[i]) || input[i] == '.') {
             std::string separate = separateNum(input, i);
             std::cout << "Index: " << i << " | Element: " << input[i] << " | Result separate: " << separate << std::endl;
-            result.append(separateNum(input, i));
+            result.append(separate);
             //result.push_back(input[i]);
         } else if (input[i] == '(') {
             operations.push(input[i]);
@@ -55,7 +55,7 @@ std::string Model::reverseToRPN(const std::string &input)
     }
 }*/
 
-std::string Model::separateNum(const std::string &input, size_t index)
+std::string Model::separateNum(const std::string &input, size_t &index)
 {
     std::string result = "";
 
@@ -63,6 +63,8 @@ std::string Model::separateNum(const std::string &input, size_t index)
         result.push_back(input[index]);
         ++index;
     }
+
+    --index;
 
     result.push_back(' ');
 
