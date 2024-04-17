@@ -13,9 +13,9 @@ int main(int argc, char *argv[])
 
     Model model;
 
-    std::string test = "120/(50+(40-10))";
+    std::string test = "1+(2*(3-4))";
 
-    std::cout << model.reverseToRPN(test);
+    std::cout << model.calculateRPN(model.reverseToRPN(test));
 
     return 0;
 }

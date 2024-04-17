@@ -48,12 +48,46 @@ std::string Model::reverseToRPN(const std::string &input)
     return result;
 }
 
-/*double Model::calculateRPN(const std::string &input)
+double Model::calculateRPN(const std::string &input)
 {
-    for (size_t i = 0; i < input.size(); ++i) {
+    std::stack<double> operands;
 
+    for (size_t i = 0; i < input.size(); ++i) {
+        if (input[i] == ' ') {
+            continue;
+        }
+        if (std::isdigit(input[i])) {
+            std::string num = separateNum(input, i);
+            num.pop_back();
+            operands.push(std::stod(num));
+            ++i;
+        } else {
+            double s = operands.top();
+            operands.pop();
+            double f = operands.top();
+            operands.pop();
+
+            std::cout << "Input[i]: " << input[i] << std::endl;
+
+            switch (input[i]) {
+                case '+':
+                    operands.push(f + s);
+                    break;
+                case '-':
+                    operands.push(f - s);
+                    break;
+                case '*':
+                    operands.push(f * s);
+                    break;
+                case '/':
+                    operands.push(f / s);
+                    break;
+            }
+        }
     }
-}*/
+
+    return operands.top();
+}
 
 std::string Model::separateNum(const std::string &input, size_t &index)
 {
